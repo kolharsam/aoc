@@ -27,8 +27,18 @@ func find(slice []string, element string) bool {
 	return flag
 }
 
+func getSum(parentMap map[string]int, childProcMap map[string][]string, process string) int {
+	sum := 0
+
+	for _, node := range childProcMap[process] {
+		sum += parentMap[node]
+	}
+
+	return sum + parentMap[process]
+}
+
 func main() {
-	file, err := os.Open("input2")
+	file, err := os.Open("input")
 	isError(err)
 	defer file.Close()
 
@@ -36,9 +46,10 @@ func main() {
 
 	nodes := []string{}
 	keyMap := make(map[string]bool)
+	keyTreeMap := make(map[string][]string)
 	processes := []string{}
 	weights := []int{}
-	allProcesses := []string{}
+	allProcessesSumMap := make(map[string]int)
 	allKeysMap := make(map[string]int)
 
 	for scanner.Scan() {
@@ -62,19 +73,17 @@ func main() {
 				values[i] = strings.TrimSpace(values[i])
 			}
 
+			keyTreeMap[key] = values
 			nodes = append(nodes, values...)
 			keyMap[key] = true
 			processes = append(processes, key)
 			weights = append(weights, weightInt)
-			allProcesses = append(allProcesses, key)
 			allKeysMap[key] = weightInt
 		} else {
 			keyWeightSplit := strings.Split(currentLine, "(")
 			key := strings.TrimSpace(keyWeightSplit[0])
 			weight, err := strconv.Atoi(strings.Split(keyWeightSplit[1], ")")[0])
 			isError(err)
-
-			allProcesses = append(allProcesses, key)
 			allKeysMap[key] = weight
 		}
 	}
@@ -89,9 +98,20 @@ func main() {
 		}
 	}
 
-	fmt.Println(keyMap, rootNode)
+	for _, process := range processes {
+		if process == rootNode {
+			allProcessesSumMap[rootNode] = 0
+		} else {
+			allProcessesSumMap[process] = getSum(allKeysMap, keyTreeMap, process)
+		}
+	}
+
+	for _, node := range keyTreeMap[rootNode] {
+		fmt.Println(node, allProcessesSumMap[node])
+	}
+
+	fmt.Println(rootNode)
 	fmt.Print("\n\n")
-	fmt.Println(allKeysMap)
-	fmt.Print("\n\n")
-	fmt.Println(allProcesses)
+	fmt.Println(keyTreeMap[rootNode])
+	// fmt.Println(allProcessesSumMap)
 }

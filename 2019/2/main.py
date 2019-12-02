@@ -16,6 +16,9 @@ if __name__ == "__main__":
     verb = 0
     # allIntInput[1] = 38
     # allIntInput[2] = 92
+    # instead of using brute force to solve this, since the noun and the verb lie as integers btw 0 and 99
+    # increase noun from 12 to 99 along with the verb being iterated across 2 to 99
+    # since the answer we have to reach -> 19690720 is greater than for 12 2 's answer.
 
     while True:
         if allIntInput[pos] == 1:
