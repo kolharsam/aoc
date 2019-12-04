@@ -6,8 +6,6 @@ with open("input") as reader:
 inputasread = input
 input = list(map(int, input.split(",")))
 
-# input = [3,1,5,4]
-
 # rules : 
 # list begins at index 0
 # take the first n elements from the loop and group them within ()
@@ -16,7 +14,6 @@ input = list(map(int, input.split(",")))
 # inc skip size and repeat
 
 ln = 256
-# ln = 5
 
 def getRing():
     temp = []
@@ -58,8 +55,6 @@ def playwithring2(ins):
     dense_hash = np.array(sparse_hash)
 
     print(''.join(hex(x)[2:].zfill(2) for x in np.bitwise_xor.reduce(dense_hash.reshape(16, 16), axis=1)))
-
-    
 
 if __name__ == "__main__":
     ring = getRing()
