@@ -9,8 +9,6 @@ while True:
     opcode = (0 if len(digits) == 1 else digits[-2])*10 +digits[-1]
     digits = digits[:-2]
 
-    print(digits)
-
     if opcode == 1:
         while len(digits) < 3:
             digits = [0] + digits
