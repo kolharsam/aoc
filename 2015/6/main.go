@@ -28,16 +28,20 @@ func main() {
 	scanner := bufio.NewScanner(file)
 
 	lightGrid := [][]bool{}
+	lightBrightGrid := [][]int{}
 	i, j := 0, 0
 
 	for i < 1000 {
 		j = 0
-		tempLine := []bool{}
+		tempList := []bool{}
+		tempLine := []int{}
 		for j < 1000 {
-			tempLine = append(tempLine, false)
+			tempList = append(tempList, false)
+			tempLine = append(tempLine, 0)
 			j++
 		}
-		lightGrid = append(lightGrid, tempLine)
+		lightGrid = append(lightGrid, tempList)
+		lightBrightGrid = append(lightBrightGrid, tempLine)
 		i++
 	}
 
@@ -69,15 +73,19 @@ func main() {
 		for fromX <= toX {
 			fromY = tempY
 			for fromY <= toY {
-
 				if instr == 0 {
 					lightGrid[fromX][fromY] = false
+					lightBrightGrid[fromX][fromY]--
+					if lightBrightGrid[fromX][fromY] < 0 {
+						lightBrightGrid[fromX][fromY] = 0
+					}
 				} else if instr == 1 {
 					lightGrid[fromX][fromY] = true
+					lightBrightGrid[fromX][fromY]++
 				} else if instr == 2 {
 					lightGrid[fromX][fromY] = !lightGrid[fromX][fromY]
+					lightBrightGrid[fromX][fromY] += 2
 				}
-
 				fromY++
 			}
 			fromX++
@@ -99,12 +107,17 @@ func main() {
 	}
 
 	i, j = 0, 0
+	brightness := 0
 
-	// for i < 1000 {
-	// 	for j < 1000 {
-	// implement part 2 here
-	// 	}
-	// }
+	for i < 1000 {
+		j = 0
+		for j < 1000 {
+			brightness += lightBrightGrid[i][j]
+			j++
+		}
+		i++
+	}
 
-	fmt.Println(counts) // Part 1
+	fmt.Println(counts)     // Part 1
+	fmt.Println(brightness) // Part 2
 }
