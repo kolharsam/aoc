@@ -26,6 +26,7 @@ def knothash(ins):
     sparse_hash = ri
     dense_hash = np.array(sparse_hash)
 
+    # pylint: disable=no-member
     return(''.join(hex(x)[2:].zfill(2) for x in np.bitwise_xor.reduce(dense_hash.reshape(16, 16), axis=1)))
 
 if __name__ == "__main__":
