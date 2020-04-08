@@ -1,5 +1,3 @@
 # AOC
 
-###### TODO
-- Soln. 7 from 2015 
-- Soln. 4 from 2018
+My Solutions for the Advent of Code [Link](https://adventofcode.com/)
