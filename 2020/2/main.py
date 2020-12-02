@@ -3,7 +3,7 @@ fileData = fileInput.read().split("\n")
 
 splitData = []
 for i in fileData:
-  interm = i.split(" ")
+  interm = i.split()
   lim = interm[0].split("-")
   low = int(lim[0])
   hi = int(lim[1])
@@ -16,23 +16,20 @@ def countOccurance(letter, word, hi, lo):
       count += 1
   return lo <= count and hi >= count
 
-mainCount = 0
+p1 = 0
 
 for i in splitData:
   if countOccurance(i[2], i[3], i[1], i[0]):
-    mainCount += 1
-#part 1
-print(mainCount)
+    p1 += 1
+
+print(p1)
 
 def filter(letter, word, hi, lo):
-  if word[lo] == letter and word[hi] != letter or word[lo] != letter and word[hi] == letter:
-    return True
-  return False
+  return (word[lo] == letter) ^ (word[hi] == letter)
 
-count2 = 0
-
+p2 = 0
 for i in splitData:
   if filter(i[2], i[3], i[1]-1, i[0]-1):
-   count2 += 1
-# part 2
-print(count2) 
+   p2 += 1
+
+print(p2) 
