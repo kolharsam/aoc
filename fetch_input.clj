@@ -3,7 +3,7 @@
 (require '[babashka.curl :as curl]
          '[clojure.java.shell :refer [sh]])
 
-;; set the var(s)
+;; set the var(s) from the dotenv
 (sh "bash" "-c" "export $(xargs <.env)")
 
 (def current-cookie
@@ -13,8 +13,7 @@
   (println "CURRENT_COOKIE is set!")
   (println "Set your CURRENT_COOKIE first!"))
 
-(def base-url
-  "https://adventofcode.com/")
+(def base-url "https://adventofcode.com/")
 
 ;; You should pass year and day as command line args
 (when (not(nil? current-cookie))
