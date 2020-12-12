@@ -45,7 +45,8 @@
       (make-api-call y_flag day))
     (make-api-call y_flag d_flag))
   ;; otherwise just make a call for today
-  (make-api-call year day)
-  (print-usage))
+  (do
+    (print-usage)
+    (make-api-call year day)))
 
 (println "Done!")
