@@ -35,7 +35,9 @@
 (defn print-usage []
   (println "Usage: ")
   (println "\t COMMAND `year` `day` ")
-  (println "If you don't provide the year or the day, the current year or the current date will be considered"))
+  (println "NOTE: If you don't provide the year or the day, the current year or the current date will be considered")
+  (println "")
+  (println ""))
 
 (if-let [[y_flag d_flag] *command-line-args*]
   (do
