@@ -40,6 +40,6 @@ echo $y_flag
 echo $d_flag
 
 # make the curl request
-curl -XGET -H "Cookie: session=${AOC_COOKIE}" "https://adventofcode.com/${year}/day/${day}/input" -o "${current_dir}/${day}.in"
+curl -XGET -H "Cookie: session=${AOC_COOKIE}" "https://adventofcode.com/${y_flag}/day/${d_flag}/input" -o "${current_dir}/${d_flag}.in"
 
-echo "Done! Fetched day ${day} input."
+echo "Done! Fetched day ${d_flag} input."
