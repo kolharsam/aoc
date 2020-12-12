@@ -1,30 +1,51 @@
 #!/usr/bin/env bb
 
 (require '[babashka.curl :as curl]
-         '[clojure.java.shell :refer [sh]])
-
-;; set the var(s) from the dotenv
-(sh "bash" "-c" "export $(xargs <.env)")
+         '[clojure.java.shell :refer [sh]]
+         '[clojure.string :as str])
+(import java.util.Date)
 
 (def current-cookie
-  (System/getenv "CURRENT_COOKIE"))
+  (System/getenv "AOC_COOKIE"))
 
-(if (not (nil? current-cookie))
-  (println "CURRENT_COOKIE is set!")
-  (println "Set your CURRENT_COOKIE first!"))
+(if current-cookie
+  (println "COOKIE is set!")
+  (do
+    (println "Set your AOC_COOKIE first!")
+    (System/exit 1)))
+
+(def date-split 
+  (str/split (.toString (java.util.Date.)) #" "))
+
+;; maybe not the best idea to get the current year and date
+(def day
+  (get date-split 2))
+
+(def year
+  (get date-split 5))
 
 (def base-url "https://adventofcode.com/")
 
-;; You should pass year and day as command line args
-(when (not(nil? current-cookie))
-  (let [[year day] *command-line-args*
-        ;; TODO?: make this into another function that would print out usage info as well
-        complete-url (str base-url year "/day/" day "/input")]
-    (println (str "Downloading input for year: " year " day: " day))
-    (println (str "fetching input from: " complete-url))
-    (spit day (:body (curl/get complete-url {:headers {"cookie" (str "session=" current-cookie)}})))
-    ;; move the file to appropriate place
-    (sh "mv" (str "./" day) (str "./" year "/" day "/"))))
+(defn make-api-call [y d]
+  (let [complete-url (str base-url y "/day/" d "/input")]
+    (println (str "Downloading input for year: " y " day: " d))
+    (spit (str d ".in") (:body (curl/get complete-url {:headers {"cookie" (str "session=" current-cookie)}})))
+    (sh "mv" (str "./" (str d ".in")) (str "./" y "/" d "/"))))
+
+(defn print-usage []
+  (println "Usage: ")
+  (println "\t COMMAND `year` `day` ")
+  (println "If you don't provide the year or the day, the current year or the current date will be considered"))
+
+(if-let [[y_flag d_flag] *command-line-args*]
+  (do
+    (when (nil? y_flag)
+      (make-api-call year d_flag))
+    (when (nil? d_flag)
+      (make-api-call y_flag day))
+    (make-api-call y_flag d_flag))
+  ;; otherwise just make a call for today
+  (make-api-call year day)
+  (print-usage))
 
 (println "Done!")
-
