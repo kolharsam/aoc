@@ -2,7 +2,7 @@ from math import sqrt
 from collections import defaultdict
 
 # Part one
-n = 22
+n = 312671
 row = (int(sqrt(n - 1)) + 1) // 2
 corner = (row*2 + 1)**2
 row_length = row * 2
