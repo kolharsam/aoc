@@ -49,15 +49,8 @@ func partTwo(nums []int) {
 		if i < 3 {
 			continue
 		}
-		prevA := nums[i-3]
-		prevB := nums[i-2]
-		prevC := nums[i-1]
-		prevD := num
 
-		sumPrev := prevA + prevB + prevC
-		currSum := sumPrev - prevA + prevD
-
-		if currSum > sumPrev {
+		if num > nums[i-3] {
 			cin++
 		}
 
