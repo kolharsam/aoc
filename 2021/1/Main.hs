@@ -5,8 +5,8 @@ getData fileName = do
   content <- readFile fileName
   pure $ map (\x -> read x :: Int) $ lines content
 
-solve :: [(Int, Int)] -> Int
-solve = foldl (\a (x, y) -> if x /= 0 && y > x then a+1 else a) 0
+solve :: [Bool] -> Int
+solve = length . filter (== True)
 
 main :: IO ()
 main = do
@@ -16,7 +16,5 @@ main = do
   print $ solve (prepInput 1 nums)
   print $ solve (prepInput 3 nums)
   where
-    prepInput :: Int -> [Int] -> [(Int, Int)]
-    prepInput zs nums =
-      let zl = replicate zs 0
-      in zip (zl ++ nums) (reverse (zl ++ reverse nums))
+    prepInput :: Int -> [Int] -> [Bool]
+    prepInput zs nums = zipWith (<) nums (drop zs nums)

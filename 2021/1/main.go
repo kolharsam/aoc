@@ -19,7 +19,7 @@ func readFile(fileName string) []int {
 
 	lines := strings.Split(string(body), "\n")
 
-	nums := make([]int, 2000)
+	nums := make([]int, 0)
 
 	for _, str := range lines {
 		num, err := strconv.Atoi(str)
@@ -39,7 +39,7 @@ func partOne(nums []int) {
 		}
 	}
 
-	println(cin - 1)
+	println(cin)
 }
 
 func partTwo(nums []int) {
@@ -54,12 +54,12 @@ func partTwo(nums []int) {
 			cin++
 		}
 
-		if i >= len(nums)-3 {
+		if i > len(nums)-2 {
 			break
 		}
 	}
 
-	println(cin - 1)
+	println(cin)
 }
 
 func main() {
