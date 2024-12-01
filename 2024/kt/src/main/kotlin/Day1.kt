@@ -3,7 +3,7 @@ package org.example
 import java.io.File
 import kotlin.math.abs
 
-fun Day1() {
+fun day1() {
     val input1 = File("inputs/input1")
     val lines = input1.readLines()
 
