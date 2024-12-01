@@ -10,8 +10,7 @@ fun day1() {
     val leftList = mutableListOf<Int>()
     val rightList = mutableListOf<Int>()
 
-    lines.forEach{
-            line ->
+    lines.forEach { line ->
         val sp = line.split("   ")
         val leftNum = Integer.parseInt(sp[0])
         val rightNum = Integer.parseInt(sp[1])
