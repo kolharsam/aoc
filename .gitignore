@@ -5,3 +5,6 @@
 todo
 target
 Cargo.lock
+venv
+.DS_Store
+2024/kt/src/main/kotlin/out
